@@ -1,0 +1,13 @@
+**2026 AP Computer Science A Capstone Project Proposal**  
+**Concept**  
+	PatneyPortfolio Manager is a terminal based portfolio management system that allows users to build and analyze a collection of financial assets. The user can add stocks and bonds to their portfolio, view all holdings in a formatted table display, sort assets by value or expected return or risk, search for specific assets by name, and view a comprehensive summary of their portfolio’s performance. The program runs entirely through Scanner input in the console.  
+**Inheritance Structure**  
+	The project is built around a parent class called FinancialAsset, which holds shared attributes like asset name, current value, and risk rating. Two child classes extend this parent. Stock adds fields for ticker symbol, shares held, price per share, and dividend yield. Bond adds fields for face value, coupon rate, and years to maturity. Both child classes override a calculateReturn() method from the parent, each implementing their own financial logic. Stock calculates return based on dividend income, while Bond calculates return based on annual coupon payments. Both also override a displayInfo() method to print their own formatted output. A PortfolioManager class serves as the runner, containing main(), the menu loop, and all system logic.  
+**Technical Plan**  
+	All asset objects are stored in a single ArrayList\<FinancialAsset\>, which enables polymorphism. When the program iterates through this list and calls calculateReturn() or displayInfo(), Java dispatches to the correct overridden version at runtime based on the actual object type. The primary algorithm is a selection sort that can sort the ArrayList by total value, expected return, or risk rating depending on user choice. A linear search allows the user to find assets by name. Input validation wraps every Scanner prompt to prevent crashes from unexpected input.  
+**Research Log**  
+	I used the Oracle Java Documentation on Inheritance[^1] and the GeeksforGeeks visual breakdown of inheritance types[^2] (single, multilevel, hierarchical) as my primary learning resources. My key insight came from understanding polymorphic dispatch. When I store a Stock object in an ArrayList\<FinancialAsset\>, the declared type is the parent, but Java still calls the child's version of any overridden method at runtime. This means I can write one loop that processes every asset in the portfolio without ever checking what type each object is. The behavior changes automatically based on the actual object. That realization shaped my entire project architecture.
+
+[^1]:  https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html
+
+[^2]:  https://www.geeksforgeeks.org/java/inheritance-in-java/
