@@ -150,7 +150,7 @@ public class PortfolioManager{
     }
 
     // Polymorphic loop. displayInfo() resolves to the correct child version at runtime.
-    for(int i = 0; o < portfolioAssets.size(); i++){
+    for(int i = 0; i < portfolioAssets.size(); i++){
       System.out.println("Asset #" + (i + 1) + ": ");
       portfolioAssets.get(i).displayInfo();
     }
@@ -177,7 +177,7 @@ public class PortfolioManager{
     System.out.println("2. Expected Return (high to low)");
     System.out.println("3. Risk Rating (low to high)");
 
-    int sortChoice = getValidint("Enter sort criteria", 1, 3);
+    int sortChoice = getValidInt("Enter sort criteria", 1, 3);
 
     // Selection Sort. On each pass, find the element that belongs in position i and swap it there.
     for(int i = 0; i < portfolioAssets.size() - 1; i++){
