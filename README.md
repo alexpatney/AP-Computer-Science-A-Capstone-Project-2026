@@ -1,6 +1,6 @@
 # PatneyPortfolio Manager
 
-A terminal-based portfolio management system built in Java for the 2026 AP Computer Science A Capstone. Users can add stocks and bonds to a portfolio, view all holdings, sort by different criteria, search for specific assets, view a performance summary, and remove assets — all through a validated console interface.
+A terminal-based portfolio management system built in Java for Alex Patney's AP Computer Science A Capstone Project. Users can add stocks and bonds to a portfolio, view all holdings, sort by different criteria, search for specific assets, view a performance summary, and remove assets — all through a validated console interface.
 
 ## Table of Contents
 
@@ -34,7 +34,7 @@ The program runs entirely in the terminal. Follow the on-screen menu prompts to 
 
 | Menu Option | What It Does |
 |---|---|
-| **1. Add Asset** | Add a Stock or Bond to the portfolio. Collects all required fields with full input validation. |
+| **1. Add Asset** | Add a Stock or Bond to the portfolio. Collects all required attributes with full input validation. |
 | **2. View Portfolio** | Displays every asset in the portfolio with all its details, using polymorphic `displayInfo()` calls. |
 | **3. Sort Portfolio** | Sorts assets using **selection sort**. User picks the criteria: current value (ascending), expected return (descending), or risk rating (ascending). |
 | **4. Search Asset** | Uses **linear search** to find an asset by name (case-insensitive). |
@@ -53,27 +53,27 @@ PortfolioManager (Runner) — manages ArrayList<FinancialAsset>
 ```
 
 ### FinancialAsset (Parent Class)
-- **Private fields:** `name`, `currentValue`, `riskRating`
-- **Constructor:** Takes all three fields
-- **Getters/Setters:** Full set for all fields (encapsulation)
+- **Private attributes:** `name`, `currentValue`, `riskRating`
+- **Constructor:** Takes all three attributes
+- **Getters/Setters:** Full set for all attributes (encapsulation)
 - **`calculateReturn()`:** Returns `0.0` as a base implementation — exists so subclasses can override it and polymorphic calls through the parent type work at compile time
-- **`displayInfo()`:** Prints the shared fields — also exists so subclasses can override it
+- **`displayInfo()`:** Prints the shared attributes — also exists so subclasses can override it
 
 ### Stock (Child Class)
-- **Additional private fields:** `tickerSymbol`, `sharesHeld`, `pricePerShare`, `dividendYield`
-- **Constructor:** Calls `super(name, currentValue, riskRating)` to initialize the parent portion, then sets stock-specific fields
+- **Additional private attributes:** `tickerSymbol`, `sharesHeld`, `pricePerShare`, `dividendYield`
+- **Constructor:** Calls `super(name, currentValue, riskRating)` to initialize the parent portion, then sets stock-specific attributes
 - **`@Override calculateReturn()`:** Returns `sharesHeld * pricePerShare * dividendYield` (annual dividend income)
-- **`@Override displayInfo()`:** Calls `super.displayInfo()` for shared fields, then prints stock-specific details
+- **`@Override displayInfo()`:** Calls `super.displayInfo()` for shared attributes, then prints stock-specific details
 
 ### Bond (Child Class)
-- **Additional private fields:** `faceValue`, `couponRate`, `yearsToMaturity`
-- **Constructor:** Calls `super(name, currentValue, riskRating)` to initialize the parent portion, then sets bond-specific fields
+- **Additional private attributes:** `faceValue`, `couponRate`, `yearsToMaturity`
+- **Constructor:** Calls `super(name, currentValue, riskRating)` to initialize the parent portion, then sets bond-specific attributes
 - **`@Override calculateReturn()`:** Returns `faceValue * couponRate` (annual coupon payment)
-- **`@Override displayInfo()`:** Calls `super.displayInfo()` for shared fields, then prints bond-specific details
+- **`@Override displayInfo()`:** Calls `super.displayInfo()` for shared attributes, then prints bond-specific details
 
 ### PortfolioManager (Runner Class)
 - **`ArrayList<FinancialAsset> portfolioAssets`** — the polymorphic collection
-- **`Scanner scanner`** — shared Scanner for all input
+- **`Scanner kb`** — shared Scanner for all input
 - **`main()`** — menu loop that delegates to dedicated methods
 - **`getValidInt()` / `getValidDouble()`** — input validation helpers reused everywhere
 
@@ -113,7 +113,7 @@ The biggest concept I had to learn for this project was how polymorphic dispatch
 
 Understanding this also helped me see why the parent class needs `calculateReturn()` and `displayInfo()` in the first place, even though its implementations are just defaults. Without those methods in `FinancialAsset`, the compiler wouldn't let me call them through a `FinancialAsset` reference — the code wouldn't even compile. The parent defines the *contract*, and the children fulfill it with real logic.
 
-I also learned practical lessons about input validation. My first version used `scanner.nextInt()` directly, which threw `InputMismatchException` the moment someone typed a letter. Switching to `scanner.nextLine()` combined with `Integer.parseInt()` inside a try-catch block completely solved the problem and made the program robust against any user input.
+I also learned practical lessons about input validation. My first version used `kb.nextInt()` directly, which threw `InputMismatchException` the moment someone typed a letter. Switching to `kb.nextLine()` combined with `Integer.parseInt()` inside a try-catch block completely solved the problem and made the program robust against any user input.
 
 ## Research Log
 
